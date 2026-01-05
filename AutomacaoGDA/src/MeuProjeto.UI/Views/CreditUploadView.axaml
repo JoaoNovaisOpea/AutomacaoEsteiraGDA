@@ -1,0 +1,85 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:MeuProjeto.UI.ViewModels"
+             x:Class="MeuProjeto.UI.Views.CreditUploadView"
+             x:DataType="vm:CreditUploadViewModel"
+             x:CompileBindings="False">
+  <StackPanel Margin="12" Spacing="12">
+    <TextBlock Text="Subir créditos via Arquivo"
+               FontSize="18"
+               FontWeight="SemiBold"
+               Margin="0,0,0,8" />
+
+    <StackPanel Spacing="8">
+      <TextBlock Text="1. Selecionar Arquivos JSON"
+                 FontWeight="SemiBold" />
+      <Button Content="Selecionar Arquivos..."
+              Command="{Binding SelectFilesCommand}"
+              Width="200"
+              HorizontalAlignment="Left" />
+      <TextBlock Text="{Binding SelectedFilesText}"
+                 TextWrapping="Wrap"
+                 Foreground="Gray"
+                 FontSize="12" />
+    </StackPanel>
+
+
+    <StackPanel Spacing="8">
+      <TextBlock Text="2. Processar Upload"
+                 FontWeight="SemiBold" />
+      <Button Content="Processar Upload"
+              Command="{Binding ProcessUploadCommand}"
+              Width="200"
+              HorizontalAlignment="Left"
+              Background="#4CAF50"
+              Foreground="White"
+              FontWeight="SemiBold" />
+    </StackPanel>
+
+    <Separator />
+
+    <StackPanel Spacing="8">
+      <TextBlock Text="3. Status"
+                 FontWeight="SemiBold" />
+      <Border BorderBrush="LightGray"
+              BorderThickness="1"
+              Padding="10"
+              CornerRadius="4"
+              Background="#F5F5F5">
+        <TextBlock Text="{Binding Status}"
+                   TextWrapping="Wrap"
+                   FontFamily="Consolas,Courier New,monospace"
+                   FontSize="12" />
+      </Border>
+      <ProgressBar Minimum="0"
+                   Maximum="{Binding TotalSteps}"
+                   Value="{Binding ProgressStep}"
+                   Height="8"
+                   IsIndeterminate="{Binding IsProcessing}" />
+      <TextBlock Text="{Binding ProgressStep, StringFormat='Passo {0} de 10'}"
+                 FontSize="11"
+                 Foreground="Gray"
+                 HorizontalAlignment="Right" />
+    </StackPanel>
+
+    <Separator />
+
+    <StackPanel Spacing="8">
+      <TextBlock Text="Log de Erros"
+                 FontWeight="SemiBold" />
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <Button Content="Abrir Log Detalhado"
+                Command="{Binding OpenLogCommand}"
+                Width="160" />
+        <TextBlock Text="{Binding LogFilePath}"
+                   VerticalAlignment="Center"
+                   FontSize="10"
+                   Foreground="Gray" />
+      </StackPanel>
+      <TextBlock Text="Use o log para diagnosticar erros de autenticação, problemas de rede, etc."
+                 FontSize="10"
+                 Foreground="Gray"
+                 TextWrapping="Wrap" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

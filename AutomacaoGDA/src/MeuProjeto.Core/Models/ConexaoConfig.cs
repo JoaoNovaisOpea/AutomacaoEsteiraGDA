@@ -23,6 +23,7 @@ public class ConexaoConfig : INotifyPropertyChanged
     private string _accessKeyIdIntegracao = string.Empty;
     private string _secretAccessKeyIntegracao = string.Empty;
     private string _rootBucketIntegracao = string.Empty;
+    private string _urlBaseS3 = string.Empty;
     private DatabaseProvider _provider = DatabaseProvider.SqlServer;
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -97,6 +98,12 @@ public class ConexaoConfig : INotifyPropertyChanged
     {
         get => _rootBucketIntegracao;
         set => SetField(ref _rootBucketIntegracao, value);
+    }
+
+    public string UrlBaseS3
+    {
+        get => _urlBaseS3;
+        set => SetField(ref _urlBaseS3, value);
     }
 
     [JsonPropertyName("BaseApiUrl")]

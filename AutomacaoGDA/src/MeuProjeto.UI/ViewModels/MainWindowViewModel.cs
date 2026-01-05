@@ -22,11 +22,17 @@ public class MainWindowViewModel : ViewModelBase
         ResetAcquisitionViewModel = new ResetAcquisitionViewModel(_databaseService, AppState);
         StockCopyViewModel = new StockCopyViewModel(_databaseService, AppState);
 
+        var logService = new LogService();
+        var s3Service = new S3Service();
+        var creditUploadService = new CreditUploadService(_databaseService, logService);
+        CreditUploadViewModel = new CreditUploadViewModel(_databaseService, creditUploadService, s3Service, AppState, logService);
+
         Pages = new ObservableCollection<NavigationItem>
         {
             new("Limpar Operacao", DataCleanupViewModel),
             new("Resetar Aquisicao", ResetAcquisitionViewModel),
             new("Copiar Stock", StockCopyViewModel),
+            new("Subir Creditos", CreditUploadViewModel),
             new("Configuracoes", ConfiguracoesViewModel)
         };
         SelectedPage = Pages.FirstOrDefault();
@@ -58,6 +64,7 @@ public class MainWindowViewModel : ViewModelBase
     public DataCleanupViewModel DataCleanupViewModel { get; }
     public ResetAcquisitionViewModel ResetAcquisitionViewModel { get; }
     public StockCopyViewModel StockCopyViewModel { get; }
+    public CreditUploadViewModel CreditUploadViewModel { get; }
     public ObservableCollection<NavigationItem> Pages { get; }
 
     private NavigationItem? _selectedPage;

@@ -21,6 +21,9 @@
     <DataTemplate DataType="vm:StockCopyViewModel">
       <views:StockCopyView />
     </DataTemplate>
+    <DataTemplate DataType="vm:CreditUploadViewModel">
+      <views:CreditUploadView />
+    </DataTemplate>
   </Window.DataTemplates>
 
   <Grid RowDefinitions="Auto,Auto,*" Margin="12">
