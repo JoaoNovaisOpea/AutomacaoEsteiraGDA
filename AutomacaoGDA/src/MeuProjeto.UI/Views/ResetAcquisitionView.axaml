@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:MeuProjeto.UI.ViewModels"
+             x:Class="MeuProjeto.UI.Views.ResetAcquisitionView"
+             x:DataType="vm:ResetAcquisitionViewModel"
+             x:CompileBindings="False">
+  <Grid RowDefinitions="Auto,Auto,*" Margin="12">
+    <TextBlock Text="Resetar aquisicao" FontSize="16" FontWeight="SemiBold" />
+
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+      <TextBlock Text="ID da aquisicao:" VerticalAlignment="Center" />
+      <TextBox Width="420" Text="{Binding AcquisitionIdText}" />
+      <Button Content="Executar Reset" Click="OnExecutarResetClick" IsEnabled="{Binding PodeExecutar}" />
+      <TextBlock Text="{Binding Status}" VerticalAlignment="Center" />
+    </StackPanel>
+
+    <TextBox Grid.Row="2"
+             AcceptsReturn="True"
+             IsReadOnly="True"
+             TextWrapping="Wrap"
+             Text="{Binding ScriptGerado}"
+             Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

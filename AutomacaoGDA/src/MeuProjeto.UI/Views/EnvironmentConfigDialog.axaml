@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="clr-namespace:MeuProjeto.Core.Models;assembly=MeuProjeto.Core"
+        x:Class="MeuProjeto.UI.Views.EnvironmentConfigDialog"
+        x:DataType="models:ConexaoConfig"
+        Title="Variaveis do ambiente"
+        Width="720"
+        Height="520"
+        WindowStartupLocation="CenterOwner">
+  <ScrollViewer>
+    <StackPanel Margin="16" Spacing="10">
+      <TextBlock Text="{Binding Ambiente}" FontSize="16" FontWeight="SemiBold" />
+      <Grid ColumnDefinitions="180,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" Margin="0">
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Connection String" VerticalAlignment="Center" Margin="0,0,8,8" />
+        <TextBox Grid.Row="0" Grid.Column="1"
+                 Text="{Binding ConnectionString, Mode=TwoWay}"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 MinHeight="70"
+                 Margin="0,0,0,8" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="UrlBaseOriginacao" VerticalAlignment="Center" Margin="0,0,8,8" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding UrlBaseOriginacao, Mode=TwoWay}" Margin="0,0,0,8" />
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="UrlLogin" VerticalAlignment="Center" Margin="0,0,8,8" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding UrlLogin, Mode=TwoWay}" Margin="0,0,0,8" />
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="UrlBase" VerticalAlignment="Center" Margin="0,0,8,8" />
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding UrlBase, Mode=TwoWay}" Margin="0,0,0,8" />
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="ClientId" VerticalAlignment="Center" Margin="0,0,8,8" />
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ClientId, Mode=TwoWay}" Margin="0,0,0,8" />
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="ClientSecret" VerticalAlignment="Center" Margin="0,0,8,8" />
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ClientSecret, Mode=TwoWay}" Margin="0,0,0,8" />
+
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="CedenteId" VerticalAlignment="Center" Margin="0,0,8,0" />
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding CedenteId, Mode=TwoWay}" />
+
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="RegionS3Integracao" VerticalAlignment="Center" Margin="0,8,8,8" />
+        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding RegionS3Integracao, Mode=TwoWay}" Margin="0,8,0,8" />
+
+        <TextBlock Grid.Row="8" Grid.Column="0" Text="AccessKeyIDIntegracao" VerticalAlignment="Center" Margin="0,0,8,8" />
+        <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding AccessKeyIDIntegracao, Mode=TwoWay}" Margin="0,0,0,8" />
+
+        <TextBlock Grid.Row="9" Grid.Column="0" Text="SecretAccessKeyIntegracao" VerticalAlignment="Center" Margin="0,0,8,8" />
+        <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding SecretAccessKeyIntegracao, Mode=TwoWay}" Margin="0,0,0,8" />
+
+        <TextBlock Grid.Row="10" Grid.Column="0" Text="RootBucketIntegracao" VerticalAlignment="Center" Margin="0,0,8,0" />
+        <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding RootBucketIntegracao, Mode=TwoWay}" />
+      </Grid>
+
+      <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+        <Button Content="Fechar" Click="OnFecharClick" />
+      </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
+</Window>
