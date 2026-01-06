@@ -6,7 +6,6 @@ public class DataCleanupViewModel : ViewModelBase
 {
     private readonly IDatabaseService _databaseService;
     private readonly AppState _appState;
-    private bool _limparStockSummary;
     private bool _limparStock;
     private bool _limparGrupoEconomico;
     private string _scriptGerado = string.Empty;
@@ -18,29 +17,16 @@ public class DataCleanupViewModel : ViewModelBase
         _databaseService = databaseService;
         _appState = appState;
         ExecutarLimpezaCommand = new AsyncRelayCommand(ExecutarLimpezaAsync);
-        LimparStockSummary = true;
+        LimparStock = true;
         LimparGrupoEconomico = true;
         _appState.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(AppState.OperacaoSelecionada))
             {
-                RaisePropertyChanged(nameof(PodeLimparStock));
                 UpdateScript();
             }
         };
         UpdateScript();
-    }
-
-    public bool LimparStockSummary
-    {
-        get => _limparStockSummary;
-        set
-        {
-            if (SetProperty(ref _limparStockSummary, value))
-            {
-                UpdateScript();
-            }
-        }
     }
 
     public bool LimparStock
@@ -54,8 +40,6 @@ public class DataCleanupViewModel : ViewModelBase
             }
         }
     }
-
-    public bool PodeLimparStock => _appState.OperacaoSelecionada is not null;
 
     public bool LimparGrupoEconomico
     {
@@ -93,10 +77,17 @@ public class DataCleanupViewModel : ViewModelBase
 
     private async Task ExecutarLimpezaAsync()
     {
-        var ambiente = _appState.ConexaoSelecionada?.Ambiente ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(ambiente))
+        var conexao = _appState.ConexaoSelecionada;
+        if (conexao is null)
         {
             Status = "Selecione um ambiente.";
+            return;
+        }
+
+        if (conexao.IsProduction)
+        {
+            Status = "BLOQUEADO: Nao e permitido executar limpeza em ambiente de producao.";
+            StatusCor = "#C81E1E";
             return;
         }
 
@@ -107,9 +98,11 @@ public class DataCleanupViewModel : ViewModelBase
             return;
         }
 
+        var ambiente = conexao.Ambiente;
+
         try
         {
-            var script = BuildScript(operacao.Id, LimparStockSummary, LimparGrupoEconomico, LimparStock);
+            var script = BuildScript(operacao.Id, LimparStock, LimparGrupoEconomico);
             ScriptGerado = script;
             var rows = await _databaseService.ExecutarComando(script, ambiente);
             Status = $"Limpeza executada. Linhas afetadas: {rows}.";
@@ -136,13 +129,13 @@ public class DataCleanupViewModel : ViewModelBase
             return;
         }
 
-        ScriptGerado = BuildScript(operacao.Id, LimparStockSummary, LimparGrupoEconomico, LimparStock);
+        ScriptGerado = BuildScript(operacao.Id, LimparStock, LimparGrupoEconomico);
         Status = "Script pronto para execucao.";
         StatusCor = "#222222";
         RaisePropertyChanged(nameof(PodeExecutarLimpeza));
     }
 
-    private static string BuildScript(Guid operationId, bool limparStockSummary, bool limparGrupoEconomico, bool limparStock)
+    private static string BuildScript(Guid operationId, bool limparStock, bool limparGrupoEconomico)
     {
         var script = $@"
 DECLARE @OperationIds TABLE (Id UNIQUEIDENTIFIER);
@@ -246,9 +239,21 @@ WHERE AcquisitionId IN (SELECT Id FROM @AcquisitionIds);
 
 DELETE FROM Acquisition
 WHERE Id IN (SELECT Id FROM @AcquisitionIds);
+
+DELETE FROM OperationDashboard
+WHERE OperationId IN (SELECT Id FROM @OperationIds);
+
+DELETE FROM OperationBalanceHistory
+WHERE OperationId IN (SELECT Id FROM @OperationIds);
+
+DELETE FROM OperationNetWorthHistory
+WHERE OperationId IN (SELECT Id FROM @OperationIds);
+
+DELETE FROM ReceivableCenterSnapshot
+WHERE OperationId IN (SELECT Id FROM @OperationIds);
 ";
 
-        if (limparStockSummary)
+        if (limparStock)
         {
             script += @"
 DELETE FROM OperationStockSummaryEconomicGroup
@@ -267,26 +272,7 @@ WHERE OperationStockSummaryId IN (
 
 DELETE FROM OperationStockSummary
 WHERE OperationId IN (SELECT Id FROM @OperationIds);
-";
-        }
 
-        script += @"
-DELETE FROM OperationDashboard
-WHERE OperationId IN (SELECT Id FROM @OperationIds);
-
-DELETE FROM OperationBalanceHistory
-WHERE OperationId IN (SELECT Id FROM @OperationIds);
-
-DELETE FROM OperationNetWorthHistory
-WHERE OperationId IN (SELECT Id FROM @OperationIds);
-
-DELETE FROM ReceivableCenterSnapshot
-WHERE OperationId IN (SELECT Id FROM @OperationIds);
-";
-
-        if (limparStock)
-        {
-            script += @"
 DELETE FROM OperationStock WHERE OperationId IN (SELECT Id FROM @OperationIds);
 ";
         }

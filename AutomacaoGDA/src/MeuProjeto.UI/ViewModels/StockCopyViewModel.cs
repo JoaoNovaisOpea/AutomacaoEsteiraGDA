@@ -197,6 +197,12 @@ public class StockCopyViewModel : ViewModelBase
             return;
         }
 
+        if (_ambienteDestino.IsProduction)
+        {
+            Status = "BLOQUEADO: Ambiente de producao nao pode ser usado como destino.";
+            return;
+        }
+
         if (_operacaoOrigem is null || _operacaoDestino is null)
         {
             Status = "Selecione operacoes de origem e destino.";

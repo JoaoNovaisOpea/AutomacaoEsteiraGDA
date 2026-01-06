@@ -184,6 +184,13 @@ public class CreditUploadViewModel : ViewModelBase
                 return;
             }
 
+            if (conexao.IsProduction)
+            {
+                Status = "BLOQUEADO: Nao e permitido subir creditos em ambiente de producao.";
+                _logService.LogError("Operacao bloqueada: ambiente de producao selecionado.");
+                return;
+            }
+
             if (operacao == null)
             {
                 Status = "Erro: Nenhuma operação selecionada.";

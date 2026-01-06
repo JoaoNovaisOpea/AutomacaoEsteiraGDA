@@ -48,10 +48,16 @@ public class ResetAcquisitionViewModel : ViewModelBase
 
     private async Task ExecutarResetAsync()
     {
-        var ambiente = _appState.ConexaoSelecionada?.Ambiente ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(ambiente))
+        var conexao = _appState.ConexaoSelecionada;
+        if (conexao is null)
         {
             Status = "Selecione um ambiente.";
+            return;
+        }
+
+        if (conexao.IsProduction)
+        {
+            Status = "BLOQUEADO: Nao e permitido resetar aquisicao em ambiente de producao.";
             return;
         }
 
@@ -59,6 +65,8 @@ public class ResetAcquisitionViewModel : ViewModelBase
         {
             return;
         }
+
+        var ambiente = conexao.Ambiente;
 
         try
         {

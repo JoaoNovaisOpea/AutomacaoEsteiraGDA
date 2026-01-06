@@ -8,8 +8,7 @@
     <TextBlock Text="Limpar dados da operacao" FontSize="16" FontWeight="SemiBold" />
 
     <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="12" Margin="0,8,0,0">
-      <CheckBox Content="Limpar StockSumary" IsChecked="{Binding LimparStockSummary}" />
-      <CheckBox Content="Limpar Stock" IsChecked="{Binding LimparStock}" IsEnabled="{Binding PodeLimparStock}" />
+      <CheckBox Content="Limpar Stock e StockSummary" IsChecked="{Binding LimparStock}" />
       <CheckBox Content="Limpar grupo economico" IsChecked="{Binding LimparGrupoEconomico}" />
     </StackPanel>
 

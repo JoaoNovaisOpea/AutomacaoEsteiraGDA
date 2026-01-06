@@ -26,6 +26,15 @@
               Height="320">
       <DataGrid.Columns>
         <DataGridTextColumn Header="Ambiente" Binding="{Binding Ambiente, Mode=TwoWay}" Width="180" />
+        <DataGridTemplateColumn Header="Producao" Width="90">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <CheckBox IsChecked="{Binding IsProduction, Mode=TwoWay}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
         <DataGridTemplateColumn Header="Variaveis" Width="120">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>

@@ -25,6 +25,7 @@ public class ConexaoConfig : INotifyPropertyChanged
     private string _rootBucketIntegracao = string.Empty;
     private string _urlBaseS3 = string.Empty;
     private DatabaseProvider _provider = DatabaseProvider.SqlServer;
+    private bool _isProduction = false;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -122,6 +123,12 @@ public class ConexaoConfig : INotifyPropertyChanged
     {
         get => _provider;
         set => SetField(ref _provider, value);
+    }
+
+    public bool IsProduction
+    {
+        get => _isProduction;
+        set => SetField(ref _isProduction, value);
     }
 
     private void SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
