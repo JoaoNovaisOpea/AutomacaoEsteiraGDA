@@ -7,7 +7,7 @@ Aplicacao desktop multiplataforma (Windows/macOS) em C#/.NET 8 com Avalonia UI p
 ```
 AutomacaoGDA/
 ├── src/
-│   ├── MeuProjeto.UI/               # Aplicacao Avalonia
+│   ├── AutomacaoGDA.UI/               # Aplicacao Avalonia
 │   │   ├── Views/
 │   │   │   ├── MainWindow.axaml
 │   │   │   ├── MainWindow.axaml.cs
@@ -23,7 +23,7 @@ AutomacaoGDA/
 │   │   ├── App.axaml.cs
 │   │   └── Program.cs
 │   │
-│   ├── MeuProjeto.Core/             # Regras de negocio
+│   ├── AutomacaoGDA.Core/             # Regras de negocio
 │   │   ├── Models/
 │   │   │   └── ConexaoConfig.cs
 │   │   ├── Interfaces/
@@ -31,13 +31,13 @@ AutomacaoGDA/
 │   │   └── Services/
 │   │       └── DatabaseService.cs
 │   │
-│   ├── MeuProjeto.Infrastructure/   # Acesso ao banco de dados
+│   ├── AutomacaoGDA.Infrastructure/   # Acesso ao banco de dados
 │   │   ├── SqlServer/
 │   │   │   └── SqlServerConnector.cs
 │   │   └── DbConfigManager.cs
 │   │
 ├── tests/
-│   └── MeuProjeto.Tests/
+│   └── AutomacaoGDA.Tests/
 │
 └── README.md
 ```
@@ -52,7 +52,7 @@ AutomacaoGDA/
 
 As configuracoes sao salvas em `appsettings.json` dentro do projeto UI:
 
-- `src/MeuProjeto.UI/appsettings.json`
+- `src/AutomacaoGDA.UI/appsettings.json`
 
 ## Copiar dados
 
@@ -75,7 +75,7 @@ Requisitos: **.NET SDK 8**.
 ```
 dotnet restore
 dotnet build
-dotnet run --project src/MeuProjeto.UI/MeuProjeto.UI.csproj
+dotnet run --project src/AutomacaoGDA.UI/AutomacaoGDA.UI.csproj
 ```
 
 ### macOS
@@ -83,7 +83,7 @@ dotnet run --project src/MeuProjeto.UI/MeuProjeto.UI.csproj
 ```
 dotnet restore
 dotnet build
-dotnet run --project src/MeuProjeto.UI/MeuProjeto.UI.csproj
+dotnet run --project src/AutomacaoGDA.UI/AutomacaoGDA.UI.csproj
 ```
 
 ## Melhorias futuras (sugestao)
@@ -96,4 +96,4 @@ dotnet run --project src/MeuProjeto.UI/MeuProjeto.UI.csproj
 - DOTNET_BIN=/Users/Opea/.dotnet/dotnet ./scripts/build-macos-dmg.sh
 
 ## Executar para gerar o exe, so que tem q fazer na pasta TesteGda
-- /Users/Opea/.dotnet/dotnet publish /Users/Opea/Documents/OutrosCodigos/TestesGda/AutomacaoGDA/src/MeuProjeto.UI/MeuProjeto.UI.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+- /Users/Opea/.dotnet/dotnet publish /Users/Opea/Documents/OutrosCodigos/TestesGda/AutomacaoGDA/src/AutomacaoGDA.UI/AutomacaoGDA.UI.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true

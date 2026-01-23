@@ -20,7 +20,7 @@ dotnet restore
 dotnet build
 
 # Run application
-dotnet run --project src/MeuProjeto.UI/MeuProjeto.UI.csproj
+dotnet run --project src/AutomacaoGDA.UI/AutomacaoGDA.UI.csproj
 
 # Build specific configuration
 dotnet build -c Release
@@ -35,12 +35,12 @@ DOTNET_BIN=/Users/Opea/.dotnet/dotnet ./scripts/build-macos-dmg.sh
 
 # The script supports parameters:
 # ./scripts/build-macos-dmg.sh [APP_NAME] [RUNTIME_ID] [EXEC_NAME] [SELF_CONTAINED]
-# Defaults: AutomacaoGDA, osx-arm64, MeuProjeto.UI, true
+# Defaults: AutomacaoGDA, osx-arm64, AutomacaoGDA.UI, true
 ```
 
 #### Windows EXE
 ```bash
-dotnet publish AutomacaoGDA/src/MeuProjeto.UI/MeuProjeto.UI.csproj \
+dotnet publish AutomacaoGDA/src/AutomacaoGDA.UI/AutomacaoGDA.UI.csproj \
   -c Release -r win-x64 --self-contained true \
   -p:PublishSingleFile=true \
   -p:IncludeNativeLibrariesForSelfExtract=true
@@ -52,20 +52,20 @@ This application follows a three-layer architecture with dependency injection:
 
 ### Layer Responsibilities
 
-**MeuProjeto.UI** (Presentation)
+**AutomacaoGDA.UI** (Presentation)
 - Avalonia UI application using MVVM pattern
 - ViewModels inherit from `ViewModelBase` and implement `INotifyPropertyChanged`
 - `AppState` is a shared singleton holding global state (selected connection, operation, status messages)
 - Main views: `MainWindow` (navigation container), `ConfiguracoesView` (connection settings), `StockCopyView` (data copy), `ResetAcquisitionView`, `DataCleanupView`
-- Configuration persisted in `src/MeuProjeto.UI/appsettings.json`
+- Configuration persisted in `src/AutomacaoGDA.UI/appsettings.json`
 
-**MeuProjeto.Core** (Business Logic)
+**AutomacaoGDA.Core** (Business Logic)
 - `DatabaseService`: orchestrates all database operations via `IDatabaseService`
 - `ConexaoConfig`: model holding environment configuration (connection string, URLs, API credentials, S3 settings, database provider)
 - `OperationInfo`: represents operations from the database (Id, FundName, Status)
 - Interfaces: `IDatabaseService`, `IDbConnector`, `IDbConnectorFactory`, `IConnectionConfigProvider`
 
-**MeuProjeto.Infrastructure** (Data Access)
+**AutomacaoGDA.Infrastructure** (Data Access)
 - `DbConnectorFactory`: creates appropriate database connectors based on `DatabaseProvider` enum
 - `SqlServerConnector`: implements `IDbConnector` for SQL Server operations (currently only SQL Server is supported)
 - Handles connection string retrieval and persistence

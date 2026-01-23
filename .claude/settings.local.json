@@ -3,7 +3,14 @@
     "allow": [
       "Bash(ls:*)",
       "Bash(dotnet build:*)",
-      "Bash(/Users/Opea/.dotnet/dotnet build:*)"
+      "Bash(/Users/Opea/.dotnet/dotnet build:*)",
+      "Bash(mv:*)",
+      "Bash(find:*)",
+      "Bash(dotnet clean:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(/Users/Opea/.dotnet/dotnet clean AutomacaoGDA.sln)",
+      "Bash(/Users/Opea/.dotnet/dotnet restore AutomacaoGDA.sln)",
+      "Bash(DOTNET_BIN=/Users/Opea/.dotnet/dotnet ./scripts/build-macos-dmg.sh:*)"
     ]
   }
 }

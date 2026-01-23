@@ -5,11 +5,11 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{17BCD2B2-B52D-45BF-833C-865E99D5EA30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeuProjeto.Core", "src\MeuProjeto.Core\MeuProjeto.Core.csproj", "{5B1912C6-B4F8-4319-8801-983944AD03DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomacaoGDA.Core", "src\AutomacaoGDA.Core\AutomacaoGDA.Core.csproj", "{5B1912C6-B4F8-4319-8801-983944AD03DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeuProjeto.Infrastructure", "src\MeuProjeto.Infrastructure\MeuProjeto.Infrastructure.csproj", "{E61ED4A9-55B0-4A5B-B289-264A1C543D74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomacaoGDA.Infrastructure", "src\AutomacaoGDA.Infrastructure\AutomacaoGDA.Infrastructure.csproj", "{E61ED4A9-55B0-4A5B-B289-264A1C543D74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeuProjeto.UI", "src\MeuProjeto.UI\MeuProjeto.UI.csproj", "{73D69326-4C23-4E36-AC79-452723E4CB44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomacaoGDA.UI", "src\AutomacaoGDA.UI\AutomacaoGDA.UI.csproj", "{73D69326-4C23-4E36-AC79-452723E4CB44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
